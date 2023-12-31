@@ -1,0 +1,67 @@
+[
+    {
+        "type":"Multiple Choice Question",
+        "question":"True/False. `<Router>` defines the scope of routing within the app. It wraps other components within the app.",
+        "answers":[
+            {
+                "answer":"true",
+                "correct":true
+            },
+            {
+                "answer":"false",
+                "correct":false
+            }
+        ]
+    },
+    {
+        "type":"Multiple Choice Question",
+        "question":"Fill in the blank:\nThe ___ component renders the UI when its path matches the current URL.",
+        "answers":[
+            {
+                "answer":"`<Router>`",
+                "correct":false
+            },
+            {
+                "answer":"`<Route>`",
+                "correct":true
+            },
+            {
+                "answer":"`<Link>`",
+                "correct":false
+            },
+            {
+                "answer":"`<Routes>`",
+                "correct":false
+            }
+
+        ]
+    },
+    {
+        "type":"Multiple Choice Question",
+        "question":"True/False. The `<Routes>` component renders one of its child `<Route>` components. Specifically, it checks the `path` of its child `<Route>` components in order, and renders only the first `<Route>` component that has a match.",
+        "answers":[
+            {
+                "answer":"true",
+                "correct":true
+            },
+            {
+                "answer":"false",
+                "correct":false
+            }
+        ]
+    },
+    {
+        "type":"Multiple Choice Question",
+        "question":"True/False. `<Link>` components cause your app to reload the entire page when the user clicks the link.",
+        "answers":[
+            {
+                "answer":"true",
+                "correct":false
+            },
+            {
+                "answer":"false",
+                "correct":true
+            }
+        ]
+    }
+]
