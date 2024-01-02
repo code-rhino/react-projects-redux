@@ -1,14 +1,12 @@
 import React from "react";
-import { Link, Route, Routes, useLocation } from "react-router-dom";
+import { Link, Route, Routes, useParams } from "react-router-dom";
 import UserPost from "./UserPost";
 
 export const UserPosts = ({ posts = [] }) => {
-    const location = useLocation();
-    const url = location.pathname;
-
+  const { userId } = useParams();
   const postLinks = posts.map((post) => (
     <li key={post.id}>
-      <Link to={`${url}/${post.id}`} data-testid={`user-post-${post.id}`}>
+      <Link to={`/users/${userId}/${post.id}`} data-testid={`user-post-${post.id}`}>
         {post.title}
       </Link>
     </li>
@@ -18,7 +16,9 @@ export const UserPosts = ({ posts = [] }) => {
     <div>
       <ul>{postLinks}</ul>
       <div>
-        {/* TODO: Display <UserPost /> if there is a :postId in the url, otherwise display "No post selected..." */}
+        <Routes>
+          <Route path={`:postId`} element={<UserPost posts={posts} />} />
+        </Routes>
       </div>
     </div>
   );
