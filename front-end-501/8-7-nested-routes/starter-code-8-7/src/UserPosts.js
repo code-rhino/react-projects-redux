@@ -22,8 +22,7 @@ export const UserPosts = () => {
     <div>
       <ul>{postLinks}</ul>
       <div>
-        {/* TODO: Display <UserPost /> if there is a :postId in the url, otherwise display "No post selected..." */}
-      </div>
+        {/* TODO: Display Nested Routes" */}      </div>
     </div>
   );
 };

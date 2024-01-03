@@ -6,18 +6,13 @@ import ErrorMessage from "../common/ErrorMessage";
 export const CardList = () => {
   const [users, setUsers] = useState([]);
   const [error, setError] = useState(undefined);
-
+  
   useEffect(() => {
     const abortController = new AbortController();
-
+    
     fetchUsersWithPosts(abortController.signal)
       .then(response => {
-        if (Array.isArray(response)) {
           setUsers(response);
-        } else {
-          // Handle unexpected response
-          setError('Invalid response format');
-        }
       })
       .catch(error => {
         setError(error);
@@ -26,6 +21,7 @@ export const CardList = () => {
     return () => abortController.abort();
   }, []);
 
+  
   if (error) {
     return <ErrorMessage error={error} />;
   }
@@ -35,7 +31,6 @@ export const CardList = () => {
     <Card key={user.id} user={user} />
   )) : null;
 
-  //console.log(list);
 
   return (
     <main className="container">
