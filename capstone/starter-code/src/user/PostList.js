@@ -7,7 +7,7 @@ import NoPostSelectedMessage from "./NoPostSelectedMessage";
 /*
   TODO: Update the below so that the components show on the appropriate route.
   
-  Hint: you can use the `useRouteMatch()` hook from "react-router-dom" to get the current URL path
+  Hint: you can use the `useParams()` hook from "react-router-dom" to get the userId
 
   The <NoPostSelectedMessage /> component should show up on the following route:
   /users/:userId/posts

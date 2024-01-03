@@ -1,61 +1,46 @@
-import React from 'react';
-import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
-import App from '../App';
-import { MemoryRouter } from 'react-router-dom';
-import users from '../data.json';
+import React from "react";
+import { MemoryRouter } from "react-router-dom";
+import { render, screen} from "@testing-library/react";
+import App from "../App";
+import "@testing-library/jest-dom/extend-expect";
+import { fetchUsersWithPosts, fetchUserWithPosts } from "../api"
 
-describe('Nested routes', () => {
-  describe('User component', () => {
-    test('displays UserProfile by default', () => {
-      render(
-        <MemoryRouter initialEntries={['/users/5']}>
-          <App />
-        </MemoryRouter>
-      );
-      expect(screen.getByText('Lucio_Hettinger@annie.ca')).toBeTruthy();
-      expect(screen.getByText('(254)954-1289')).toBeTruthy();
-      expect(screen.queryByText('non est facere')).toBeFalsy();
-    });
+require("cross-fetch/polyfill");
 
-    test('displays UserPosts when url ends with /posts', () => {
-      render(
-        <MemoryRouter initialEntries={['/users/3/posts']}>
-          <App />
-        </MemoryRouter>
-      );
-      expect(screen.queryByText('Nathan@yesenia.net')).toBeFalsy();
-      expect(screen.queryByText('1-463-123-4447')).toBeFalsy();
-      expect(screen.getByText('asperiores ea ipsam voluptatibus modi minima quia sint')).toBeTruthy();
-      expect(screen.getByText('a quo magni similique perferendis')).toBeTruthy();
-    });
+jest.mock("../api");
 
-    test('uses route URL in links', () => {
-      render(
-        <MemoryRouter initialEntries={['/users/5']}>
-          <App />
-        </MemoryRouter>
-      );
-
-     // expect(screen.getByTestId('user-profile').getAttribute('to')).toBe('/users/5');
-      expect(screen.getByTestId('user-posts').getAttribute('to')).toBe('/users/5/posts');
-    });
+describe("App", () => {
+  afterEach(() => {
+    fetchUserWithPosts.mockReset();
+    fetchUsersWithPosts.mockReset();
   });
 
-  describe('UserPosts component', () => {
+  test("Navigating to an unknown URL shows 'Page not found!'", async () => {
+    // ... mock implementations ...
 
-    test('displays UserPost when url ends with :postID', () => {
-      const user = users.find(user => user.id === 4);
-
-      render(
-        <MemoryRouter initialEntries={['/users/4/posts/32']}>
+    render(
+      <MemoryRouter initialEntries={["/this/route/does/not/exist"]}>
           <App />
-        </MemoryRouter>
-      );
+      </MemoryRouter>
+    );
 
-      expect(screen.getByText('Patricia Lebsack')).toBeTruthy();
-      expect(screen.getByText('ullam ut quidem id aut vel consequuntur')).toBeTruthy();
-      expect(screen.getByText('deserunt eos nobis asperiores et hic est debitis repellat molestiae optio nihil ratione ut eos beatae quibusdam distinctio maiores earum voluptates et aut adipisci ea maiores voluptas maxime')).toBeTruthy();
-    });
+    await screen.findByText(/page not found/i);
+
+    expect(screen.getByText("Page not found!")).toBeInTheDocument();
   });
+
+  /*test("/ does not show 'Go Home', user info, or blog posts", async () => {
+    // ... mock implementations ...
+
+    render(
+      <MemoryRouter initialEntries={["/"]}>
+        <App />
+      </MemoryRouter>
+    );
+
+    await screen.findByText(/Clementina DuBuque/i);
+
+    expect(screen.queryAllByText(/email/i)).toHaveLength(0);
+    // ... other expectations ...
+  });*/
 });

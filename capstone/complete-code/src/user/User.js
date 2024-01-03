@@ -1,14 +1,18 @@
 import React, { useEffect, useState } from "react";
-import UserProfile from "./UserProfile";
 import { fetchUserWithPosts } from "../api";
-import PostList from "./PostList";
+import {
+  NavLink,
+  useParams,
+  Outlet,
+  Link
+} from "react-router-dom";
 import PostsNav from "./PostsNav";
 import ErrorMessage from "../common/ErrorMessage";
 
 export const User = () => {
   const [user, setUser] = useState({ posts: [] });
   const [error, setError] = useState(undefined);
-  const userId = 1; // TODO: This ID will need to be pulled from parameters.
+  const { userId } = useParams();
 
   useEffect(() => {
     const abortController = new AbortController();
@@ -25,11 +29,23 @@ export const User = () => {
     return (
       <ErrorMessage error={error}>
         <p>
-          <a>Return Home</a>
+        <Link to="/">Return Home</Link>
         </p>
       </ErrorMessage>
     );
   }
+
+  /*
+    TODO: In the below section, update the links to work appropriately with React Router.
+
+    TODO: You'll need to add nested routes below.
+
+    The <PostList /> component should show on the following route:
+    /users/:userId/posts
+
+    The <UserProfile /> component should show on the following route:
+    /users/:userId
+  */
   return (
     <section className="container">
       <PostsNav />
@@ -38,18 +54,21 @@ export const User = () => {
         <h2 className="mb-3">{user.name}</h2>
         <ul className="nav nav-tabs">
           <li className="nav-item">
-            <a className="nav-link">Profile</a>
+            <NavLink to={`/users/${userId}`} className="nav-link">
+              Profile
+            </NavLink>
           </li>
           <li className="nav-item">
-            <a className="nav-link">Posts</a>
+            <NavLink to={`/users/${userId}/posts`} className="nav-link">
+            Posts
+            </NavLink>
+            
           </li>
         </ul>
 
         {user.id ? (
           <div className="p-4 border border-top-0">
-            {/* TODO: Change to display sub route content */}
-            <PostList posts={user.posts} />
-            <UserProfile user={user} />
+            <Outlet />
           </div>
         ) : (
           <div className="p-4 border border-top-0">

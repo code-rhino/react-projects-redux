@@ -1,8 +1,6 @@
 import React, { Fragment } from "react";
-
+import RootRoutes from "./RootRoutes";
 import Header from "./common/Header";
-import CardList from "./home/CardList";
-import User from "./user/User";
 
 function App() {
   /*
@@ -18,8 +16,7 @@ function App() {
   return (
     <Fragment>
       <Header />
-      <User />
-      <CardList /> 
+      <RootRoutes />
     </Fragment>
   );
 }
