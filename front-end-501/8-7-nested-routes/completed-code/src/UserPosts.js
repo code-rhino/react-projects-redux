@@ -1,25 +1,27 @@
 import React from "react";
-import { Link, Route, Routes, useParams } from "react-router-dom";
-import UserPost from "./UserPost";
+import users from "./data.json";
+import { Link, Outlet, useParams } from "react-router-dom";
 
-export const UserPosts = ({ posts = [] }) => {
+export const UserPosts = () => {
   const { userId } = useParams();
-  const postLinks = posts.map((post) => (
+  if (!userId) {
+    throw new Error("No URL parameter for userId");
+  }
+  const user = users.find((user) => `${user.id}` === userId);
+  const postLinks = user.posts.map((post) => (
     <li key={post.id}>
-      <Link to={`/users/${userId}/${post.id}`} data-testid={`user-post-${post.id}`}>
+      <Link to={`/users/${userId}/posts/${post.id}`} data-testid={`user-post-${post.id}`}>
         {post.title}
       </Link>
     </li>
   ));
 
   return (
+
     <div>
       <ul>{postLinks}</ul>
-      <div>
-        <Routes>
-          <Route path={`:postId`} element={<UserPost posts={posts} />} />
-        </Routes>
-      </div>
+      <Outlet />
+
     </div>
   );
 };

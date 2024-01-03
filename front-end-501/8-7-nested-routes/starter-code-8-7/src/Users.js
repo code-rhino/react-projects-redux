@@ -1,7 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import users from "./data.json";
 
-export const Users = ({ users = [] }) => {
+export const Users = () => {
   const rows = users.map((user) => (
     <tr key={user.id}>
       <td>{user.id}</td>

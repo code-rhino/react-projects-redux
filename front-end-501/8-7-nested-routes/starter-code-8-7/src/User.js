@@ -2,15 +2,13 @@ import React from "react";
 import {
   Link,
   NavLink,
-  Route,
-  Routes,
   useParams,
-  useRouteMatch,
 } from "react-router-dom";
+import users from "./data.json";
 import UserPosts from "./UserPosts";
 import UserProfile from "./UserProfile";
 
-export const User = ({ users = [] }) => {
+export const User = () => {
   const { userId } = useParams();
 
   if (!userId) {

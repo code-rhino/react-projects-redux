@@ -1,6 +1,15 @@
 import React from "react";
+import users from "./data.json";
+import { useParams } from "react-router-dom";
 
-export const UserProfile = ({ user = {} }) => {
+export const UserProfile = () => {
+  const { userId } = useParams();
+  if (!userId) {
+    throw new Error("No URL parameter for userId");
+  }
+
+  const user = users.find((user) => `${user.id}` === userId);
+
   return (
     <div>
       <div>

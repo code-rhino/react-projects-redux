@@ -2,18 +2,14 @@ import React from "react";
 import {
   Link,
   NavLink,
-  Route,
-  Routes,
   useParams,
-  useLocation,
+  Outlet,
 } from "react-router-dom";
-import UserPosts from "./UserPosts";
-import UserProfile from "./UserProfile";
+import users from "./data.json";
 
-export const User = ({ users = [] }) => {
+
+export const User = () => {
   const { userId } = useParams();
-  const location = useLocation();
-  const url = location.pathname;
 
   if (!userId) {
     throw new Error("No URL parameter for userId");
@@ -39,13 +35,8 @@ export const User = ({ users = [] }) => {
               </NavLink>
             </li>
           </ul>
-
+          <Outlet />
         </div>
-
-        <Routes>
-          <Route path={`posts/*`} element={<UserPosts posts={user.posts} />} />
-          <Route path={`/`} element={<UserProfile user={user} />} />
-        </Routes>
       </section>
     );
   }
