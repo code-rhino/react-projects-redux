@@ -160,8 +160,5 @@ describe("User", ()=>{
         expect(screen.getByText("Profile")).toHaveAttribute("href", "/users/8");
         expect(screen.getByText("Posts")).toHaveAttribute("href", "/users/8/posts");
 
-
-        //expect(screen.getByText(/\/user\/8/i).getAttribute("href")).toBe("/users/8");
-        //expect(screen.getByText(/posts/i).getAttribute("href")).toBe("/users/8/posts");
       });
 })

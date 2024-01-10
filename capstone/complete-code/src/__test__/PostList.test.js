@@ -14,7 +14,7 @@ jest.mock('react-router-dom', () => ({
 
 jest.mock("../api");
 
-describe("PostLink", ()=>{
+describe("PostList", ()=>{
     beforeEach(() => {
         // Reset the mockNavigate before each test
         mockNavigate.mockReset();
